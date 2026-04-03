@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kitsune Works</title>
+
+<style>
+
+body {
+    background-color: black;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    padding: 10px 16px;
+    background: black;
+}
+
+.header img{
+    width: 40px;  
+    margin-right: 10px;
+}
+
+h2 {
+    color: #d2691e;
+    font-family: Tahoma;
+}
+
+h1 {
+    color: #d2691e;
+    text-align: center;
+    font-size: 70px;
+    margin: 0px;
+    margin-bottom: 20px; 
+    font-family: Tahoma;
+}
+
+.glow-text {
+  color: black; 
+  font-size: 70px;
+  font-weight: bold;
+  margin-bottom: 2px;
+  font-family: Tahoma;
+  text-shadow:
+    0 0 4px rgb(169, 87, 29),
+    0 0 8px rgb(169, 87, 29),
+    0 0 16px rgb(169, 87, 29);
+}
+
+p {
+    color: #d3d3d3;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+    margin: 0px;
+}
+
+.button-container {
+    display: flex;            
+    justify-content: center;   
+    gap: 50px;              
+    margin-top: 30px;
+}
+
+.gamebutton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: chocolate; 
+    color: #d3d3d3;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 13px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.gamebutton:hover {
+    background-color:darksalmon;
+}
+
+.icon {
+    width: 20px;
+    height: auto;
+    margin-right: 5px;
+}
+
+.shopbutton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #d2691e;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 13px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.shopbutton:hover {
+    background-color: antiquewhite;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.image-gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Allows items to go to the next line */
+    gap: 40px; 
+    margin-top: 40px;
+    max-width: 1100px; /* Limits the width so the 3rd item must drop down */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Make the card a clickable block */
+.game-card {
+    text-decoration: none; /* Removes underline from text */
+    display: block;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+/* Hover effect: Lift the card and add a glow to the image */
+.game-card:hover {
+    transform: translateY(-10px);
+}
+
+.game-card img {
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+    transition: box-shadow 0.3s ease, border 0.3s ease;
+    border: 2px solid transparent;
+}
+
+/* Highlight image on hover */
+.game-card:hover img {
+    border: 2px solid #d2691e;
+    box-shadow: 0 0 20px rgba(210, 105, 30, 0.5);
+}
+
+/* Maintain text color */
+.game-card h3 {
+    color: white;
+    font-family: Verdana, sans-serif;
+    font-size: 20px;
+    margin-top: 15px;
+    transition: color 0.3s ease;
+}
+
+.game-card:hover h3 {
+    color: #d2691e; /* Text turns orange on hover */
+}
+
+/* Container for hidden screenshots */
+.sub-gallery {
+    display: none; /* Hidden by default */
+    width: 100%;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px 0;
+    flex-wrap: wrap;
+    animation: fadeIn 0.4s ease;
+}
+
+/* Shown when active */
+.sub-gallery.active {
+    display: flex;
+}
+
+.sub-gallery img {
+    width: 300px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ffffff;
+}
+
+/* Styling for the hidden description */
+.game-description {
+    color: #d3d3d3;
+    font-family: Verdana, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 20px auto; /* Centers the text and adds space below */
+    text-align: center;
+    padding: 0 20px;
+}
+
+/* Ensure the sub-gallery stacks the description on top of images */
+.sub-gallery {
+    flex-direction: column; /* Stacks description then images */
+    align-items: center;
+}
+
+.sub-images {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.video-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px; /* Space between buttons and video */
+    padding: 0 20px;
+}
+
+.hero-video {
+    width: 100%;
+    max-width: 800px; /* Adjust this to make the video larger or smaller */
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(210, 105, 30, 0.3); /* Optional: adds a slight orange glow */
+}
+
+/* Pushes the nav links to the right */
+.nav-links {
+    margin-left: auto;
+    display: flex;
+    margin-right: 25px;
+}
+
+/* Styles the header links */
+.nav-links a {
+    color: #d3d3d3;
+    text-decoration: none;
+    font-family: Verdana, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+/* Hover effect for header links */
+.nav-links a:hover {
+    color: #d2691e;
+}
+
+/* Ensure the header stays above the video and other content */
+.header {
+    z-index: 1000;
+}
+
+/* Merch Card Styling */
+.merch-card {
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 320px; /* Fixed width for consistency */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #333;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.merch-card:hover {
+    transform: translateY(-10px);
+    border-color: #d2691e;
+    box-shadow: 0 0 20px rgba(210, 105, 30, 0.4);
+}
+
+.merch-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.merch-info {
+    padding: 15px;
+}
+
+.merch-info h3 {
+    color: #d2691e;
+    margin: 10px 0 5px 0;
+    font-family: Tahoma;
+}
+
+.merch-price {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.merch-description {
+    color: #b0b0b0;
+    font-size: 14px;
+    font-family: Verdana, sans-serif;
+    line-height: 1.4;
+    padding: 0 10px;
+}
+
+
+
+</style> 
+</head> 
+
+<script>
+function toggleGame(id) {
+    // Find the specific gallery we want to show
+    const targetGallery = document.getElementById(id);
+    
+    // Check if it's already open
+    const isOpen = targetGallery.classList.contains('active');
+
+    // Close all galleries first (optional, creates an accordion effect)
+    document.querySelectorAll('.sub-gallery').forEach(gal => {
+        gal.classList.remove('active');
+    });
+
+    // If it wasn't open, open it now
+    if (!isOpen) {
+        targetGallery.classList.add('active');
+        // Smoothly scroll to the new images
+        setTimeout(() => {
+            targetGallery.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+    }
+}
+</script>
+
+<body>
+
+<div class="header" id="myHeader">
+    <img src="logo.png" alt="logo">
+    <h2>Kitsune Works</h2>
+
+    <div class="nav-links">
+        <a href="#about-section">Contact Us</a>
+    </div>
+</div>
+
+
+<h1 class="glow-text">Meaningful Personal</h1>
+<h1>Game Journeys</h1>
+<p>We focus on player experience and emotional impact,</p>
+<p>by building unique worlds that players remember.</p>
+<div class="button-container">
+    <a href="#games-section" style="text-decoration: none;">
+    <button class="gamebutton">
+        <img src="gameicon.png" alt="icon" class="icon">
+        View Our Games
+    </button>
+</a>
+    <a href="#merch-section" style="text-decoration: none;">
+    <button class="shopbutton">
+        <img src="shopicon.png" alt="icon" class="icon">
+        Shop Merch
+    </button>
+</a>
+</div>
+
+<div class="video-container">
+    <video autoplay muted loop playsinline class="hero-video">
+        <source src="VideoTrailer.mp4" type="video/mp4">
+    </video>
+</div>
+
+<div id="games-section" style="margin-top: 25vh; padding: 50px; color: white;">
+    <h2>Our Games</h2>
+    <p>Check out our games here!</p>
+
+   <div class="image-gallery">
+    <div class="game-wrapper">
+        <a href="javascript:void(0)" class="game-card" onclick="toggleGame('senja-pics')">
+            <img src="SenjaView.jpeg" alt="Senja Poster">
+            <h3>Senja</h3>
+        </a>
+        <div id="senja-pics" class="sub-gallery">
+            <p class="game-description">Senja is a 3D survival horror game where you play as Hafiz, a boy completing his evening chores while following Islamic practices. 
+            Because of an antique coin, unseen entities begin to haunt the house. Every missed prayer or neglected du'a increases the danger. Manage your time and stay disciplined.</p>
+            <div class="sub-images">
+                <img src="senja1.png" alt="Senja 1">
+                <img src="senja2.png" alt="Senja 2">
+                <img src="senja3.png" alt="Senja 3">
+            </div>
+        </div>
+    </div>
+
+    <div class="game-wrapper">
+        <a href="javascript:void(0)" class="game-card" onclick="toggleGame('hoshimori-pics')">
+            <img src="Raw Poster 4.jpg" alt="Hoshimori Cafe Poster">
+            <h3>Hoshimori Cafe</h3>
+        </a>
+        <div id="hoshimori-pics" class="sub-gallery">
+            <p class="game-description">At Hoshimori Cafe, every cup tells a story. Tokiya Souta, a new barista, quickly learns that his job
+            isn't just about serving coffee but it's also about understanding people. Customers come in with different personalities, careers and hidden worries. By listening carefully, Souta must secretly
+            craft the perfect coffee that matches who they are. Souta realizes that choosing the wrong drink will push the customers
+            away while choosing the right drink not only comforts the customer but also unlocks deeper stories about their lives.<br><br> Through this journey, players discover that coffee
+            isn't "just a drink", but a reflection of personality, mood and connection which is a bridge between people.</p>            
+            <div class="sub-images">
+                <img src="Gameplay 1.png" alt="Cafe 1">
+                <img src="Gameplay 2.png" alt="Cafe 2">
+                <img src="Gameplay 3.png" alt="Cafe 3">
+            </div>
+        </div>
+    </div>
+
+    <div class="game-wrapper">
+        <a href="javascript:void(0)" class="game-card" onclick="toggleGame('woods-pics')">
+            <img src="Outofwood.jpeg" alt="OutOfWood Poster">
+            <h3>Out of the Woods</h3>
+        </a>
+        <div id="woods-pics" class="sub-gallery">
+            <p class="game-description">Out of the Woods is a survival game set in a dark forest where you play as a lost hiker trying to make it through the night. 
+            Explore your surroundings, avoid dangers like a lurking bear, and make smart decisions to stay alive. 
+            With limited visibility and resources, every move counts in this tense and immersive survival experience.</p>
+            <div class="sub-images">
+                <img src="Wood3.jpeg" alt="Woods 1">
+                <img src="Wood1.jpeg" alt="Woods 2">
+                <img src="Wood2.jpeg" alt="Woods 3">
+            </div>
+        </div>
+    </div>
+
+    <div class="game-wrapper">
+        <a href="javascript:void(0)" class="game-card" onclick="toggleGame('lunar-pics')">
+            <img src="LunaR.jpeg" alt="LunaR Poster">
+            <h3>LunaR</h3>
+        </a>
+        <div id="lunar-pics" class="sub-gallery">
+            <p class="game-description"> LunaR is an engaging 2D endless runner game that challenges players to react quickly and stay focused. 
+            Players must avoid obstacles, collect rewards, and keep running to achieve the highest score possible. 
+            As the game progresses, the speed and difficulty increase, making it more exciting and competitive for players of all skill levels.</p>
+            <div class="sub-images">
+                <img src="LunaR1.jpg" alt="LunaR 1">
+                <img src="LunaR2.jpg" alt="LunaR 2">
+                <img src="LunaR3.jpg" alt="LunaR 3">
+            </div>
+        </div>
+    </div>
+
+    <div class="game-wrapper">
+        <a href="javascript:void(0)" class="game-card" onclick="toggleGame('yume-pics')">
+            <img src="Yume.jpg" alt="Yume Poster">
+            <h3>Yume Mindscape</h3>
+        </a>
+        <div id="yume-pics" class="sub-gallery">
+            <p class="game-description">Yume Mindscape is a 2D pixel game about a high school girl preparing for her math exams. 
+            Players help her answer quiz questions to move forward in the game.</p>
+            <div class="sub-images">
+                <img src="Yume1.jpeg" alt="Yume 1">
+                <img src="Yume2.jpeg" alt="Yume 2">
+                <img src="Yume3.jpeg" alt="Yume 3">
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="merch-section" style="margin-top: 25vh; padding: 50px; color: white;">
+    <h2 style="text-align: center;">Our Merch</h2>
+    <p style="text-align: center;">Official Kitsune Works Merchandise.</p>
+
+    <div class="image-gallery">
+        
+        <div class="merch-card">
+            <img src="image.png" alt="Kitsune Hoodie">
+            <div class="merch-info">
+                <h3>Senja Mousepad</h3>
+                <p class="merch-price">RM15.00</p>
+                <p class="merch-description">Mouse pad suitable for gaming sessions.</p>
+            </div>
+        </div>
+
+        <div class="merch-card">
+            <img src="CafeMerch.jpeg" alt="Cafe card">
+            <div class="merch-info">
+                <h3>Hoshimori Cafe Photocards</h3>
+                <p class="merch-price">RM25.00</p>
+                <p class="merch-description">Rewind your memories with characters by simply looking at their photocards.</p>
+            </div>
+        </div>
+
+        <div class="merch-card">
+            <img src="WoodsMerch.jpeg" alt="Woods Key">
+            <div class="merch-info">
+                <h3>Out of the Woods Keycaps</h3>
+                <p class="merch-price">RM10.00</p>
+                <p class="merch-description">Cute keycaps to make up your life happier.</p>
+            </div>
+        </div>
+
+        <div class="merch-card">
+            <img src="LunaRMErch.jpeg" alt="Senja Art Print">
+            <div class="merch-info">
+                <h3>LunaR Tumbler</h3>
+                <p class="merch-price">RM30.00</p>
+                <p class="merch-description">Quench your thirst with our special tumbler.</p>
+            </div>
+        </div>
+
+        <div class="merch-card">
+            <img src="YumeMerch.jpeg" alt="Senja Art Print">
+            <div class="merch-info">
+                <h3>Yume Mindscape Keychain</h3>
+                <p class="merch-price">RM5.00</p>
+                <p class="merch-description">Bring your favourite character wherever you go.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+        
+    </div>
+</div>
+
+<div id="about-section" style="margin-top: 25vh; padding: 50px; color: white;">
+    <h2>Contact us</h2>
+</div>
+    <p style="text-align: justify; margin-left: 50px;">Instagram : kitsu_neworks</p><br><br>
+    <p style="text-align: justify; margin-left: 50px;">Discord : Kitsune Works Official</p><br><br>
+    <p style="text-align: justify; margin-left: 50px;">Email : e20241034083@siswa.upsi.edu.my</p><br><br>
+
+</body> 
+</html>
